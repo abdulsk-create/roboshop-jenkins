@@ -10,12 +10,18 @@ def call() {
           }
 
           stage ('Test') {
+            when {
+              expression { env.BRANCH_NAME ==~ ".*" }
+            }
             steps {
               echo 'Hello World'
             }
           }
 
           stage ('Code Quality') {
+            when {
+              expression { env.BRANCH_NAME ==~ ".*" }
+            }
             steps {
               echo 'Hello World'
             }
