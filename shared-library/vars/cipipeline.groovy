@@ -11,7 +11,11 @@ def call() {
 
           stage ('Test') {
             when {
-              expression { env.BRANCH_NAME ==~ ".*" }
+              allOf {
+                expression { env.BRANCH_NAME != null }
+                expression { env.TAG_NAME == null }
+              }
+
             }
             steps {
               echo 'Hello World'
