@@ -20,7 +20,7 @@ def call() {
 
           stage ('Code Quality') {
             when {
-              allof {
+              allOf {
                 expression { env.BRANCH_NAME ==~ ".*" }
                 expression { env.TAG_NAME !=~ ".*" }
               }
