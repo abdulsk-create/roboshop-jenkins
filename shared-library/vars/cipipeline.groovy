@@ -16,7 +16,13 @@ def call() {
       stage ('Compile Code') {
         common.compile()
       }
-
+      if(env.TAG_NAME == null) {
+        print 'NULL'
+      } else {
+        print 'NOTHING TO DO!'
+      }
+      sh 'exit 1'
+      //if(env.BRANCH_NAME ==~ ".*" && env.TAG_NAME !=~ ".*")
       stage ('Test') {
         print 'Hello'
       }
