@@ -20,7 +20,7 @@ def compile() {
 
 }
 
-def test() {
+def Test() {
   stage('Test Cases') {
     print 'Test'
   }
