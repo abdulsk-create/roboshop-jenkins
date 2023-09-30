@@ -13,7 +13,7 @@ def compile() {
     }
 
     if (env.codeType == "static") {
-      print 'Static'
+      print 'static'
     }
   }
 
