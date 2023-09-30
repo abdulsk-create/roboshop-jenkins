@@ -15,19 +15,19 @@ def call() {
 
 
       if(env.TAG_NAME ==~ ".*") {
-        common.Compile()
-        common.Release()
+        common.compile()
+        common.release()
 
       } else {
         if(env.BRANCH_NAME == "main") {
-          common.CompileCode()
-          common.Test()
-          common.CodeQuality()
-          common.CodeSecurity()
+          common.compile()
+          common.test()
+          common.codeQuality()
+          common.codeSecurity()
         } else {
-          common.CompileCode()
-          common.Test()
-          common.CodeQuality()
+          common.compile()
+          common.test()
+          common.codeQuality()
         }
       }
     }
