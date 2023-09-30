@@ -20,25 +20,25 @@ def compile() {
 
 }
 
-def Test() {
+def test() {
   stage('Test Cases') {
     print 'Test'
   }
 }
 
-def CodeQuality() {
+def codeQuality() {
   stage('Code Quality') {
     print 'Code Quality'
   }
 }
 
-def CodeSecurity() {
+def codeSecurity() {
   stage('Code Security') {
     print 'Code Security'
   }
 }
 
-def Release() {
+def release() {
   stage ('Release') {
     print 'Release'
   }
