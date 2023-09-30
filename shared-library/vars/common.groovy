@@ -1,5 +1,5 @@
 def compile() {
-  if (env.codeType == "python") {
+  if (env.codeType == "python" || env.codeType == "static") {
     return "return don't need compilation!"
   }
   stage('Compile Code') {
@@ -10,15 +10,7 @@ def compile() {
     if (env.codeType == "nodejs") {
       sh 'npm install'
     }
-
-
-
-    if (env.codeType == "static") {
-      print 'static'
-    }
   }
-
-
 }
 
 def test() {
