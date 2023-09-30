@@ -20,11 +20,13 @@ def call() {
         stage ('Test') {
           print 'Hello'
         }
+
+        stage ('Code Quality') {
+          print 'Hello'
+        }
       }
 
-      stage ('Code Quality') {
-        print 'Hello'
-      }
+
 
       stage ('Code Security') {
         print 'Hello'
