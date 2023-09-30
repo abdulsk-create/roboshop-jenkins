@@ -26,19 +26,19 @@ def test() {
   }
 }
 
-def codeQuality() {
+def CodeQuality() {
   stage('Code Quality') {
     print 'Code Quality'
   }
 }
 
-def codeSecurity() {
+def CodeSecurity() {
   stage('Code Security') {
     print 'Code Security'
   }
 }
 
-def release() {
+def Release() {
   stage ('Release') {
     print 'Release'
   }
