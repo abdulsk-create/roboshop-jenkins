@@ -50,6 +50,8 @@ def codeQuality() {
 def codeSecurity() {
   stage('Code Security') {
     print 'Code Security'
+    // in code security we will generally use SAST (Static Application Security Testing) and SCA (Software Composition Analysis) checks.
+    // For code security in our org we are using check marx SAST & check marx SCA
   }
 }
 
