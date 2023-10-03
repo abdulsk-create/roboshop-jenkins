@@ -63,7 +63,7 @@ def release() {
     env.nexuspass = sh (script: 'aws ssm get-parameter --name "nexus.pass" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
     wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: sonarpass]]]) {
       if(codeType == "nodejs") {
-        sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules'
+        sh 'zip -r ${component}.zip server.js node_modules'
       }
     }
   }
