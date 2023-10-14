@@ -7,8 +7,12 @@ def call(){
       string(name: 'ENV', defaultValue: '', description: 'Which Environment to Deploy?')
       string(name: 'VERSION', defaultValue: '', description: 'Which Version to Deploy?')
     }
+    environment {
+      SSH = credentials('centos-ssh')
+    }
 
-    stages {
+
+      stages {
       stage('Parameter Store Update') {
         steps {
             sh '''
