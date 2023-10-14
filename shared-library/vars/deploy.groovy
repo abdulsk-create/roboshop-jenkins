@@ -23,7 +23,7 @@ def call(){
             aws ssm put-parameter --name "${COMPONENT}.${ENV}.appVersion" --type "String" --value "${VERSION}" --overwrite    
 '''
             script {
-              addInfoBadge(text: "${ENV}-${COMPONENT}-${VERSION}")
+                addShortText(text: "${ENV}-${COMPONENT}-${VERSION}")
             }
         }
       }
