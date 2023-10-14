@@ -9,18 +9,25 @@ def call(){
     }
 
     stages {
-      stage ('Parameter Store Update') {
+      stage('Parameter Store Update') {
         sh '''
           aws ssm put-parameter --name "${COMPONENT}.${ENV}.appVersion" --type "String" --value "${VERSION}" --overwrite
 '''
       }
-      stage ('Deploy') {
+      stage('Deploy') {
         steps {
           sh '''
             aws ec2 describe-instances --filters "Name=tag:Name,Values=${ENV}-${COMPONENT}" --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text >inv
             ansible-playbook -i inv  main.yml -e component=${COMPONENT} -e env=${ENV}
 '''
         }
+      }
+    }
+
+    post {
+      always {
+        cleanWs()
+
       }
     }
   }
