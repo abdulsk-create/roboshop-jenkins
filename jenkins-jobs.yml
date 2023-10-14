@@ -6,6 +6,7 @@
     folders:
       - { folder_name: "CI-Pipelines" }
       - { folder_name: "Infra-Jobs" }
+      - { folder_name: "Deployment-Jobs" }
     mjobs:
       - { job_name: "cart", repo_name: "https://github.com/abdulsk-create/cart", folder_name: "CI-Pipelines" }
       - { job_name: "catalogue", repo_name: "https://github.com/abdulsk-create/catalogue", folder_name: "CI-Pipelines" }
@@ -16,6 +17,7 @@
 
     sjobs:
       - { job_name: "roboshop-terraform", repo_name: "https://github.com/abdulsk-create/roboshop-terraform", folder_name: "Infra-Jobs" }
+      - { job_name: "App-Deployment", repo_name: "https://github.com/abdulsk-create/roboshop-ansible", folder_name: "Deployment-Jobs" }
 
 
 
