@@ -2,7 +2,8 @@ def call(){
   pipeline {
     agent any
       options {
-          ansiColor('xterm')
+        ansiColor('xterm')
+
       }
 
     parameters {
@@ -19,8 +20,11 @@ def call(){
       stage('Parameter Store Update') {
         steps {
             sh '''
-            aws ssm put-parameter --name "${COMPONENT}.${ENV}.appVersion" --type "String" --value "${VERSION}" --overwrite        
+            aws ssm put-parameter --name "${COMPONENT}.${ENV}.appVersion" --type "String" --value "${VERSION}" --overwrite    
 '''
+            script {
+              addInfoBadge(text: "${ENV}-${COMPONENT}-${VERSION}")
+            }
         }
       }
       stage('Deploy') {
