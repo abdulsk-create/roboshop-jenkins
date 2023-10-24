@@ -57,22 +57,36 @@ def codeSecurity() {
   }
 }
 
-def release() {
-  stage ('Release') {
-    env.nexususer = sh (script: 'aws ssm get-parameter --name "nexus.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
-    env.nexuspass = sh (script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
-    wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
-      sh 'echo ${TAG_NAME} >VERSION'
-      if(codeType == "nodejs") {
-        sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION ${schemadir}'
-      } else if(codeType == "maven") {
-        sh 'cp target/${component}-1.0.jar ${component}.jar; zip -r ${component}-${TAG_NAME}.zip ${component}.jar VERSION ${schemadir}'
-      } else {
-        sh 'zip -r ${component}-${TAG_NAME}.zip *'
-      }
+//This is for Nexus
+//def release() {
+//  stage ('Release') {
+//    env.nexususer = sh (script: 'aws ssm get-parameter --name "nexus.username" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+//    env.nexuspass = sh (script: 'aws ssm get-parameter --name "nexus.password" --with-decryption --query="Parameter.Value" |xargs', returnStdout: true).trim()
+//    wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[password: nexuspass]]]) {
+//      sh 'echo ${TAG_NAME} >VERSION'
+//      if(codeType == "nodejs") {
+//        sh 'zip -r ${component}-${TAG_NAME}.zip server.js node_modules VERSION ${schemadir}'
+//      } else if(codeType == "maven") {
+//        sh 'cp target/${component}-1.0.jar ${component}.jar; zip -r ${component}-${TAG_NAME}.zip ${component}.jar VERSION ${schemadir}'
+//      } else {
+//        sh 'zip -r ${component}-${TAG_NAME}.zip *'
+//      }
+//
+//      sh 'curl -v -u ${nexususer}:${nexuspass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.30.93:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+//    }
+//  }
+//}
 
-      sh 'curl -v -u ${nexususer}:${nexuspass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.30.93:8081/repository/${component}/${component}-${TAG_NAME}.zip'
-    }
+//This is for AWS ECR
+
+def release() {
+  stage('Release') {
+    sh '''
+      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 219961291665.dkr.ecr.us-east-1.amazonaws.com
+      docker build -t frontend .
+      docker tag frontend:latest 219961291665.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}
+      docker push 219961291665.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}
+'''
   }
 }
 
